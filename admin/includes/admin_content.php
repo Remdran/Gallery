@@ -7,9 +7,20 @@
                 Admin
                 <small>Subheading</small>
             </h1>
+
+            <?php
+
+            $sql = "SELECT * FROM users WHERE id = 1";
+            $result = $database->query($sql);
+            $userFound = mysqli_fetch_array($result);
+
+            echo $userFound['username'];
+
+            ?>
+
             <ol class="breadcrumb">
                 <li>
-                    <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+                    <i class="fa fa-dashboard"></i> <a href="index.php">Dashboard</a>
                 </li>
                 <li class="active">
                     <i class="fa fa-file"></i> Blank Page
