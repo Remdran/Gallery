@@ -10,12 +10,15 @@
 
             <?php
 
-            $sql = "SELECT * FROM users WHERE id = 1";
-            $result = $database->query($sql);
-            $userFound = mysqli_fetch_array($result);
+            $users = User::findAllUsers();
+            foreach ($users as $user) {
+                echo $user->username . "<br>";
+            }
 
-            echo $userFound['username'];
-
+            //                $result_set_id = User::findUserById('1');
+            //                $user = User::createUser($result_set_id);
+            //                echo $user->getFirstName() ."<br>";
+            //                echo $user->getUsername();
             ?>
 
             <ol class="breadcrumb">
