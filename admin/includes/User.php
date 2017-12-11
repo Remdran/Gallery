@@ -49,6 +49,19 @@ class User
         return ! empty($resultArray) ? array_shift($resultArray) : false;
     }
 
+    public static function verifyUser($username, $password)
+    {
+        global $database;
+
+        $username = $database->escapeString($username);
+        $password = $database->escapeString($password);
+
+        $sql = "SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}' LIMIT 1";
+
+        $result = self::doQuery($sql);
+        return ! empty($result) ? array_shift($result) : false;
+    }
+
 
     //region Getters
 
