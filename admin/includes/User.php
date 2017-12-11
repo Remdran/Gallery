@@ -4,10 +4,10 @@
 class User
 {
 
-    public $id;
-    public $username;
-    public $first_name;
-    public $last_name;
+    protected $id;
+    protected $username;
+    protected $first_name;
+    protected $last_name;
 
     public static function findAllUsers()
     {
@@ -44,7 +44,9 @@ class User
 
     public static function findUserById($id)
     {
-        return self::doQuery("SELECT * FROM users WHERE id = $id");
+        $resultArray = self::doQuery("SELECT * FROM users WHERE id = $id LIMIT 1");
+
+        return ! empty($resultArray) ? array_shift($resultArray) : false;
     }
 
 

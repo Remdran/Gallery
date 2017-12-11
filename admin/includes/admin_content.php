@@ -10,15 +10,15 @@
 
             <?php
 
-            $users = User::findAllUsers();
-            foreach ($users as $user) {
-                echo $user->username . "<br>";
-            }
+            //            $users = User::findAllUsers();
+            //            foreach ($users as $user) {
+            //                echo $user->username . "<br>";
+            //            }
 
-            //                $result_set_id = User::findUserById('1');
-            //                $user = User::createUser($result_set_id);
-            //                echo $user->getFirstName() ."<br>";
-            //                echo $user->getUsername();
+
+            $user = User::findUserById(2);
+            echo $user->getUsername();
+
             ?>
 
             <ol class="breadcrumb">
