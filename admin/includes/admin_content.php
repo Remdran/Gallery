@@ -10,7 +10,7 @@
 
             <?php
 
-            $user = User::findUserById(4);
+            $user = User::findUserById(6);
             $user->delete();
 
             ?>

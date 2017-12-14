@@ -3,17 +3,25 @@
 
 class User
 {
-
     protected $id;
     protected $username;
     protected $password;
     protected $first_name;
     protected $last_name;
 
+    protected static $dbTable = "users";
+
 
     public static function findAllUsers()
     {
         return self::doQuery('SELECT * FROM users');
+    }
+
+    public static function findUserById($id)
+    {
+        $resultArray = self::doQuery("SELECT * FROM users WHERE id = $id LIMIT 1");
+
+        return ! empty($resultArray) ? array_shift($resultArray) : false;
     }
 
     public static function doQuery($sql)
@@ -44,13 +52,6 @@ class User
         return $createdUser;
     }
 
-    public static function findUserById($id)
-    {
-        $resultArray = self::doQuery("SELECT * FROM users WHERE id = $id LIMIT 1");
-
-        return ! empty($resultArray) ? array_shift($resultArray) : false;
-    }
-
     public static function verifyUser($username, $password)
     {
         global $database;
@@ -64,15 +65,20 @@ class User
         return ! empty($result) ? array_shift($result) : false;
     }
 
-    public function create($username, $password, $first_name, $last_name)
+    public function save()
+    {
+        return isset($this->id) ? $this->update() : $this->create();
+    }
+
+    public function create()
     {
         global $database;
 
-        $sql = "INSERT INTO users (username, password, first_name, last_name) VALUES ('";
-        $sql .= $database->escapeString($username) . "', '";
-        $sql .= $database->escapeString($password) . "', '";
-        $sql .= $database->escapeString($first_name) . "', '";
-        $sql .= $database->escapeString($last_name) . "')";
+        $sql = "INSERT INTO " . self::$dbTable . " (username, password, first_name, last_name) VALUES ('";
+        $sql .= $database->escapeString($this->username) . "', '";
+        $sql .= $database->escapeString($this->password) . "', '";
+        $sql .= $database->escapeString($this->first_name) . "', '";
+        $sql .= $database->escapeString($this->last_name) . "')";
 
         if ($database->query($sql)) {
             $this->id = $database->insertedId();
@@ -86,7 +92,7 @@ class User
     {
         global $database;
 
-        $sql = "UPDATE users SET ";
+        $sql = "UPDATE " . self::$dbTable . " SET ";
         $sql .= "username= '" . $database->escapeString($this->username) . "', ";
         $sql .= "password= '" . $database->escapeString($this->password) . "', ";
         $sql .= "first_name= '" . $database->escapeString($this->first_name) . "', ";
@@ -102,8 +108,8 @@ class User
     {
         global $database;
 
-        $sql = "DELETE FROM users ";
-        $sql .= "WHERE id=" . $database->escapeString($this->id);
+        $sql = "DELETE FROM " . self::$dbTable;
+        $sql .= " WHERE id=" . $database->escapeString($this->id);
         $sql .= " LIMIT 1";
 
         $database->query($sql);
