@@ -6,8 +6,10 @@ class User
 
     protected $id;
     protected $username;
+    protected $password;
     protected $first_name;
     protected $last_name;
+
 
     public static function findAllUsers()
     {
@@ -62,6 +64,53 @@ class User
         return ! empty($result) ? array_shift($result) : false;
     }
 
+    public function create($username, $password, $first_name, $last_name)
+    {
+        global $database;
+
+        $sql = "INSERT INTO users (username, password, first_name, last_name) VALUES ('";
+        $sql .= $database->escapeString($username) . "', '";
+        $sql .= $database->escapeString($password) . "', '";
+        $sql .= $database->escapeString($first_name) . "', '";
+        $sql .= $database->escapeString($last_name) . "')";
+
+        if ($database->query($sql)) {
+            $this->id = $database->insertedId();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update()
+    {
+        global $database;
+
+        $sql = "UPDATE users SET ";
+        $sql .= "username= '" . $database->escapeString($this->username) . "', ";
+        $sql .= "password= '" . $database->escapeString($this->password) . "', ";
+        $sql .= "first_name= '" . $database->escapeString($this->first_name) . "', ";
+        $sql .= "last_name= '" . $database->escapeString($this->last_name) . "' ";
+        $sql .= " WHERE id= " . $database->escapeString($this->id);
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+    }
+
+    public function delete()
+    {
+        global $database;
+
+        $sql = "DELETE FROM users ";
+        $sql .= "WHERE id=" . $database->escapeString($this->id);
+        $sql .= " LIMIT 1";
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+    }
+
 
     //region Getters
 
@@ -98,4 +147,37 @@ class User
     }
     //endregion
 
+    //region Setters
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
+    //endregion
 }

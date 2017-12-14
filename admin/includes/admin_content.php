@@ -10,14 +10,8 @@
 
             <?php
 
-            //            $users = User::findAllUsers();
-            //            foreach ($users as $user) {
-            //                echo $user->username . "<br>";
-            //            }
-
-
-            $user = User::findUserById(2);
-            echo $user->getUsername();
+            $user = User::findUserById(4);
+            $user->delete();
 
             ?>
 
