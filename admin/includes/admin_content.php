@@ -10,7 +10,7 @@
 
             <?php
 
-            //            $photos = Photo::findAllUsers();
+            //            $photos = Photo::findAll();
             //            foreach ($photos as $photo) {
             //                echo $photo->getTitle();
             //            }

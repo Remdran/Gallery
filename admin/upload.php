@@ -5,6 +5,21 @@
 }
 ?>
 
+<?php
+$message = "";
+if (isset($_POST['submit'])) {
+    $photo = new Photo();
+    $photo->setTitle($_POST['title']);
+    $photo->set_file($_FILES['file_upload']);
+
+    if ($photo->save()) {
+        $message = "Photo uploaded successfully";
+    } else {
+        $message = join("<br>", $photo->errors);
+    }
+}
+?>
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
@@ -26,6 +41,7 @@
                     </h1>
 
                     <div class="col-md-6">
+                        <?= $message; ?>
                         <form action="upload.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="text" name="title" class="form-control">

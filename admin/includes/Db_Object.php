@@ -4,7 +4,7 @@
 class Db_Object
 {
 
-    public static function findAllUsers()
+    public static function findAll()
     {
         return self::doQuery('SELECT * FROM ' . static::$dbTable); //late static binding
     }
