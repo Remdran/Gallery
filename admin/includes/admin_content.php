@@ -10,8 +10,17 @@
 
             <?php
 
-            $user = User::findUserById(6);
-            $user->delete();
+            $photos = Photo::findAllUsers();
+            foreach ($photos as $photo) {
+                echo $photo->getTitle();
+            }
+
+            //            $photo = new Photo();
+            //            $photo->setTitle("TitleofPhoto");
+            //            $photo->setFilename("Photo2");
+            //            $photo->setSize(23);
+            //            $photo->save();
+
 
             ?>
 

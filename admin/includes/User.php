@@ -1,7 +1,7 @@
 <?php
 
 
-class User
+class User extends Db_Object
 {
     protected $id;
     protected $username;
@@ -10,47 +10,6 @@ class User
     protected $last_name;
 
     protected static $dbTable = "users";
-
-
-    public static function findAllUsers()
-    {
-        return self::doQuery('SELECT * FROM users');
-    }
-
-    public static function findUserById($id)
-    {
-        $resultArray = self::doQuery("SELECT * FROM users WHERE id = $id LIMIT 1");
-
-        return ! empty($resultArray) ? array_shift($resultArray) : false;
-    }
-
-    public static function doQuery($sql)
-    {
-        global $database;
-
-        $result = $database->query($sql);
-        $objArray = [];
-
-        while ($row = mysqli_fetch_array($result)) {
-            $objArray[] = self::createUser($row);
-        }
-
-        return $objArray;
-    }
-
-    public static function createUser($user)
-    {
-        $createdUser = new self;
-        $class_props = get_object_vars($createdUser);
-
-        foreach ($user as $property => $value) {
-            if (array_key_exists($property, $class_props)) {
-                $createdUser->$property = $value;
-            }
-        }
-
-        return $createdUser;
-    }
 
     public static function verifyUser($username, $password)
     {
@@ -74,7 +33,7 @@ class User
     {
         global $database;
 
-        $sql = "INSERT INTO " . self::$dbTable . " (username, password, first_name, last_name) VALUES ('";
+        $sql = "INSERT INTO " . static::$dbTable . " (username, password, first_name, last_name) VALUES ('";
         $sql .= $database->escapeString($this->username) . "', '";
         $sql .= $database->escapeString($this->password) . "', '";
         $sql .= $database->escapeString($this->first_name) . "', '";
@@ -92,7 +51,7 @@ class User
     {
         global $database;
 
-        $sql = "UPDATE " . self::$dbTable . " SET ";
+        $sql = "UPDATE " . static::$dbTable . " SET ";
         $sql .= "username= '" . $database->escapeString($this->username) . "', ";
         $sql .= "password= '" . $database->escapeString($this->password) . "', ";
         $sql .= "first_name= '" . $database->escapeString($this->first_name) . "', ";
@@ -108,7 +67,7 @@ class User
     {
         global $database;
 
-        $sql = "DELETE FROM " . self::$dbTable;
+        $sql = "DELETE FROM " . static::$dbTable;
         $sql .= " WHERE id=" . $database->escapeString($this->id);
         $sql .= " LIMIT 1";
 
@@ -116,7 +75,6 @@ class User
 
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
-
 
     //region Getters
 
