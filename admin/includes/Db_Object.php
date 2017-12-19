@@ -9,6 +9,14 @@ class Db_Object
         return self::doQuery('SELECT * FROM ' . static::$dbTable); //late static binding
     }
 
+
+    public static function findById($id)
+    {
+        $resultArray = self::doQuery("SELECT * FROM " . static::$dbTable . " WHERE id= $id LIMIT 1");
+
+        return ! empty($resultArray) ? array_shift($resultArray) : false;
+    }
+
     public static function doQuery($sql)
     {
         global $database;
@@ -38,10 +46,4 @@ class Db_Object
         return $createdObject;
     }
 
-    public static function findUserById($id)
-    {
-        $resultArray = self::doQuery('SELECT * FROM ' . static::$dbTable . ' WHERE id = $id LIMIT 1');
-
-        return ! empty($resultArray) ? array_shift($resultArray) : false;
-    }
 }

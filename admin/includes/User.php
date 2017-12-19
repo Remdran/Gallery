@@ -3,6 +3,7 @@
 
 class User extends Db_Object
 {
+
     protected $id;
     protected $username;
     protected $password;

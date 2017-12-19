@@ -7,23 +7,6 @@
                 Admin
                 <small>Subheading</small>
             </h1>
-
-            <?php
-
-            //            $photos = Photo::findAll();
-            //            foreach ($photos as $photo) {
-            //                echo $photo->getTitle();
-            //            }
-
-            //            $photo = new Photo();
-            //            $photo->setTitle("TitleofPhoto");
-            //            $photo->setFilename("Photo2");
-            //            $photo->setSize(23);
-            //            $photo->save();
-
-
-            ?>
-
             <ol class="breadcrumb">
                 <li>
                     <i class="fa fa-dashboard"></i> <a href="index.php">Dashboard</a>

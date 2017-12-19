@@ -33,14 +33,16 @@ class Photo extends Db_Object
         if (empty($file) || ! $file || ! is_array($file)) {
             $this->errors[] = "There was no file uploaded";
             return false;
-        } else if ($file['error'] != 0) {
-            $this->errors[] = $this->uploadErrors[$file['error']];
-            return false;
         } else {
-            $this->filename = basename($file['name']);
-            $this->tmpPath = $file['tmp_name'];
-            $this->type = $file['type'];
-            $this->size = $file['size'];
+            if ($file['error'] != 0) {
+                $this->errors[] = $this->uploadErrors[$file['error']];
+                return false;
+            } else {
+                $this->filename = basename($file['name']);
+                $this->tmpPath = $file['tmp_name'];
+                $this->type = $file['type'];
+                $this->size = $file['size'];
+            }
         }
     }
 
@@ -129,10 +131,19 @@ class Photo extends Db_Object
         $sql .= " LIMIT 1";
 
         $database->query($sql);
-
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
 
+    public function deletePhoto()
+    {
+        if ($this->delete()) {
+            $targetPath = SITE_ROOT . DS . 'admin' . DS . $this->photoPath();
+
+            return unlink($targetPath) ? true : false;
+        } else {
+            return false;
+        }
+    }
 
     //region Getters and Setters
 
