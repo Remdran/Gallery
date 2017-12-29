@@ -45,8 +45,8 @@ $photos = Photo::findAll();
                                     <td>
                                         <img src="<?= $photo->photoPath(); ?>" alt="">
                                         <div class="pictures_link">
-                                            <a href="delete_photo.php/?id=<?= $photo->getId(); ?>">Delete</a>
-                                            <a href="#">Edit</a>
+                                            <a href="delete_photo.php?id=<?= $photo->getId(); ?>">Delete</a>
+                                            <a href="edit_photo.php?id=<?= $photo->getId(); ?>">Edit</a>
                                             <a href="#">View</a>
                                         </div>
                                     </td>

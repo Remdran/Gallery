@@ -7,10 +7,12 @@ class Photo extends Db_Object
     protected static $dbTable = "photos";
     protected $id;
     protected $title;
-    protected $desc;
+    protected $description;
     protected $filename;
     protected $type;
     protected $size;
+    protected $caption;
+    protected $alternate_text;
 
     public $tmpPath;
     public $uploadDir = 'images';
@@ -184,7 +186,7 @@ class Photo extends Db_Object
      */
     public function getDesc()
     {
-        return $this->desc;
+        return $this->description;
     }
 
     /**
@@ -192,7 +194,7 @@ class Photo extends Db_Object
      */
     public function setDesc($desc)
     {
-        $this->desc = $desc;
+        $this->description = $desc;
     }
 
     /**
@@ -241,6 +243,39 @@ class Photo extends Db_Object
     public function setSize($size)
     {
         $this->size = $size;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
+    /**
+     * @param mixed $caption
+     */
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAltText()
+    {
+        return $this->alternate_text;
+    }
+
+    /**
+     * @param mixed $altText
+     */
+    public function setAltText($altText)
+    {
+        $this->alternate_text = $altText;
     }
     //endregion
 }
