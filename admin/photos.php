@@ -43,7 +43,7 @@ $photos = Photo::findAll();
                             <?php foreach ($photos as $photo) : ?>
                                 <tr>
                                     <td>
-                                        <img src="<?= $photo->photoPath(); ?>" alt="">
+                                        <img class="admin-photo-thumbnail" src="<?= $photo->photoPath(); ?>" alt="">
                                         <div class="pictures_link">
                                             <a href="delete_photo.php?id=<?= $photo->getId(); ?>">Delete</a>
                                             <a href="edit_photo.php?id=<?= $photo->getId(); ?>">Edit</a>

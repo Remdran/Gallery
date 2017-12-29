@@ -17,6 +17,8 @@ if (empty($_GET['id'])) {
             $photo->setCaption($_POST['caption']);
             $photo->setAltText($_POST['alternate_text']);
             $photo->setDesc($_POST['description']);
+
+            $photo->save();
         }
     }
 }
@@ -43,12 +45,17 @@ if (empty($_GET['id'])) {
                         <small>Subheading</small>
                     </h1>
 
-                    <form action="edit_photo.php" method="POST">
+                    <form action="" method="POST">
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="Title">Title</label>
                                 <input type="text" name="title" class="form-control" value="<?= $photo->getTitle() ?>">
                             </div>
+
+                            <div class="form-group">
+                                <a class="thumbnail" href="#"><img src="<?= $photo->photoPath(); ?>" alt=""></a>
+                            </div>
+
 
                             <div class="form-group">
                                 <label for="caption">Caption</label>
@@ -78,7 +85,8 @@ if (empty($_GET['id'])) {
                                 <div class="inside">
                                     <div class="box-inner">
                                         <p class="text">
-                                            <span class="glyphicon glyphicon-calendar"></span>Uploaded on:
+                                            <span class="glyphicon glyphicon-calendar"></span>Uploaded on: 15 August
+                                            2017 @ 18:25
                                         </p>
                                         <p class="text">
                                             Photo Id: <span class="data photo_id_box">34</span>
@@ -107,9 +115,8 @@ if (empty($_GET['id'])) {
                             </div>
                         </div>
                     </form>
+                </div>
 
-                </
-                >
             </div>
             <!-- /.row -->
 

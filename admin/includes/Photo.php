@@ -94,9 +94,11 @@ class Photo extends Db_Object
 
         $sql = "UPDATE " . static::$dbTable . " SET ";
         $sql .= "title= '" . $database->escapeString($this->title) . "', ";
-        $sql .= "desc= '" . $database->escapeString($this->desc) . "', ";
+        $sql .= "caption= '" . $database->escapeString($this->caption) . "', ";
+        $sql .= "description= '" . $database->escapeString($this->description) . "', ";
         $sql .= "filename= '" . $database->escapeString($this->filename) . "', ";
-        $sql .= "type= '" . $database->escapeString($this->type) . "' ";
+        $sql .= "alternate_text= '" . $database->escapeString($this->alternate_text) . "', ";
+        $sql .= "type= '" . $database->escapeString($this->type) . "', ";
         $sql .= "size= '" . $database->escapeString($this->size) . "' ";
         $sql .= " WHERE id= " . $database->escapeString($this->id);
 
@@ -109,10 +111,12 @@ class Photo extends Db_Object
     {
         global $database;
 
-        $sql = "INSERT INTO " . static::$dbTable . " (title, description, filename, type, size) VALUES ('";
+        $sql = "INSERT INTO " . static::$dbTable . " (title, caption, description, filename, alternate_text, type, size) VALUES ('";
         $sql .= $database->escapeString($this->title) . "', '";
-        $sql .= $database->escapeString($this->desc) . "', '";
+        $sql .= $database->escapeString($this->caption) . "', '";
+        $sql .= $database->escapeString($this->description) . "', '";
         $sql .= $database->escapeString($this->filename) . "', '";
+        $sql .= $database->escapeString($this->alternate_text) . "', '";
         $sql .= $database->escapeString($this->type) . "', '";
         $sql .= $database->escapeString($this->size) . "')";
 
