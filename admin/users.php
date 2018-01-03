@@ -49,8 +49,7 @@ $users = User::findAll();
                                     <td><?= $user->getUsername(); ?>
                                         <div class="action_links">
                                             <a href="delete_user.php?id=<?= $user->getId(); ?>">Delete</a>
-                                            <a href="edit_photo.php?id=<?= $user->getId(); ?>">Edit</a>
-                                            <a href="#">View</a>
+                                            <a href="edit_user.php?id=<?= $user->getId(); ?>">Edit</a>
                                         </div>
                                     </td>
                                     <td><?= $user->getFirstname(); ?></td>
