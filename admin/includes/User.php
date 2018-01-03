@@ -3,12 +3,14 @@
 
 class User extends Db_Object
 {
-
     protected $id;
     protected $username;
     protected $password;
     protected $first_name;
     protected $last_name;
+    protected $user_image;
+    protected $uploadDir = "images";
+    protected $imagePlaceholder = "http://placehold.it/400x400&text=image";
 
     protected static $dbTable = "users";
 
@@ -77,6 +79,11 @@ class User extends Db_Object
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
 
+    public function imagePath()
+    {
+        return empty($this->user_image) ? $this->imagePlaceholder : $this->uploadDir . DS . $this->user_image;
+    }
+
     //region Getters
 
     /**
@@ -109,6 +116,11 @@ class User extends Db_Object
     public function getLastName()
     {
         return $this->last_name;
+    }
+
+    public function getUserImage()
+    {
+        return $this->user_image;
     }
     //endregion
 
@@ -143,6 +155,11 @@ class User extends Db_Object
     public function setLastName($last_name)
     {
         $this->last_name = $last_name;
+    }
+
+    public function setUserImage($user_image)
+    {
+        $this->user_image = $user_image;
     }
     //endregion
 }

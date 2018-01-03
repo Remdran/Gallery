@@ -1,4 +1,12 @@
 <?php include("includes/header.php"); ?>
+<?php
+if ( ! $session->isSignedIn()) {
+    redirect('login.php');
+}
+?>
+<?php
+$users = User::findAll();
+?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -20,6 +28,39 @@
                         <small>Subheading</small>
                     </h1>
 
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Photo</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($users as $user) : ?>
+                                <tr>
+                                    <td><?= $user->getId(); ?></td>
+                                    <td><img class="admin-photo-thumbnail user_image" src="<?= $user->imagePath(); ?>"
+                                             alt=""></td>
+                                    <td><?= $user->getUsername(); ?>
+                                        <div class="action_links">
+                                            <a href="delete_user.php?id=<?= $user->getId(); ?>">Delete</a>
+                                            <a href="edit_photo.php?id=<?= $user->getId(); ?>">Edit</a>
+                                            <a href="#">View</a>
+                                        </div>
+                                    </td>
+                                    <td><?= $user->getFirstname(); ?></td>
+                                    <td><?= $user->getLastname(); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+
                 </div>
             </div>
             <!-- /.row -->
@@ -30,4 +71,4 @@
     </div>
     <!-- /#page-wrapper -->
 
-<?php include("includes/footer.php"); ?>
+<?php include("includes/footer.php"); ?><?php
