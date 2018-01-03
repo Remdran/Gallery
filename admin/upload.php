@@ -10,7 +10,7 @@ $message = "";
 if (isset($_POST['submit'])) {
     $photo = new Photo();
     $photo->setTitle($_POST['title']);
-    $photo->set_file($_FILES['file_upload']);
+    $photo->setFile($_FILES['file_upload']);
 
     if ($photo->save()) {
         $message = "Photo uploaded successfully";

@@ -48,7 +48,7 @@ if (empty($_GET['id'])) {
                     <form action="" method="POST">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="Title">Title</label>
+                                <label for="title">Title</label>
                                 <input type="text" name="title" class="form-control" value="<?= $photo->getTitle() ?>">
                             </div>
 
@@ -64,7 +64,7 @@ if (empty($_GET['id'])) {
                             </div>
 
                             <div class="form-group">
-                                <label for="alternateText">Alternate Text</label>
+                                <label for="alternate_text">Alternate Text</label>
                                 <input type="text" name="alternate_text" class="form-control"
                                        value="<?= $photo->getAltText() ?>">
                             </div>

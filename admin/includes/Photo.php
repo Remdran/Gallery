@@ -30,7 +30,7 @@ class Photo extends Db_Object
     ];
 
     // $file = $_FILES['uploaded_file'] from upload form
-    public function set_file($file)
+    public function setFile($file)
     {
         if (empty($file) || ! $file || ! is_array($file)) {
             $this->errors[] = "There was no file uploaded";
