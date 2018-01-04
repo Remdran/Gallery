@@ -1,10 +1,32 @@
 <?php
-if (isset($_POST['submit'])) {
-    echo "hello";
+require_once("admin/includes/init.php");
+
+if (empty($_GET['id'])) {
+    redirect("index.php");
 }
 
-?>
+$photo = Photo::findById($_GET['id']);
 
+if (isset($_POST['submit'])) {
+    $author = trim($_POST['author']);
+    $body = trim($_POST['body']);
+
+    $createdComment = Comment::createComment($photo->getId(), $author, $body);
+
+    if ($createdComment) {
+        $createdComment->save();
+        redirect("photo.php?id={$photo->getId()}");
+    } else {
+        $message = "There was a problem with submitting your comment";
+    }
+} else {
+    $author = "";
+    $body = "";
+}
+
+$comments = Comment::findComment($photo->getId());
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,6 +154,18 @@ if (isset($_POST['submit'])) {
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
+
+            <?php foreach ($comments as $comment) : ?>
+                <div class="media">
+                    <a href="#" class="pull-left">
+                        <img src="http://placehold.it/64x64" alt="" class="media-object">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><?= $comment->getAuthor(); ?></h4>
+                        <?= $comment->getBody(); ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
 
 
