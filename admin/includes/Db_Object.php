@@ -4,6 +4,7 @@
 class Db_Object
 {
 
+    public $errors = [];
     public $uploadErrors = [   // Translating constant error codes to readable errors
         UPLOAD_ERR_OK         => 'There is no error',
         UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize in php.ini',
@@ -55,6 +56,24 @@ class Db_Object
         }
 
         return $createdObject;
+    }
+
+    public function setFile($file)
+    {
+        if (empty($file) || ! $file || ! is_array($file)) {
+            $this->errors[] = "There was no file uploaded";
+            return false;
+        } else {
+            if ($file['error'] != 0) {
+                $this->errors[] = $this->uploadErrors[$file['error']];
+                return false;
+            } else {
+                $this->user_image = basename($file['name']);
+                $this->tmpPath = $file['tmp_name'];
+                $this->type = $file['type'];
+                $this->size = $file['size'];
+            }
+        }
     }
 
 }

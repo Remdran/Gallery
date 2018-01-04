@@ -11,10 +11,7 @@ class User extends Db_Object
     protected $user_image;
     protected $uploadDir = "images";
     protected $imagePlaceholder = "http://placehold.it/400x400&text=image";
-
     protected static $dbTable = "users";
-
-    public $errors = [];
 
     public static function verifyUser($username, $password)
     {
@@ -87,58 +84,35 @@ class User extends Db_Object
         return empty($this->user_image) ? $this->imagePlaceholder : $this->uploadDir . DS . $this->user_image;
     }
 
-    public function setFile($file)
-    {
-        if (empty($file) || ! $file || ! is_array($file)) {
-            $this->errors[] = "There was no file uploaded";
-            return false;
-        } else {
-            if ($file['error'] != 0) {
-                $this->errors[] = $this->uploadErrors[$file['error']];
-                return false;
-            } else {
-                $this->user_image = basename($file['name']);
-                $this->tmpPath = $file['tmp_name'];
-                $this->type = $file['type'];
-                $this->size = $file['size'];
-            }
-        }
-    }
-
     public function saveImage()
     {
-        if ($this->id) {
-            $this->update();
+        if ( ! empty($this->errors)) {
+            return false;
+        }
+
+        if (empty($this->user_image) || empty($this->tmpPath)) {
+            $this->errors[] = "The file was not available";
+            return false;
+        }
+
+        $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->user_image;
+
+        var_dump($targetPath);
+
+        if (file_exists($targetPath)) {
+            $this->errors[] = "The file {$this->user_image} already exists";
+            return false;
+        }
+
+        if (move_uploaded_file($this->tmpPath, $targetPath)) {
+            unset($this->tmpPath);
+            return true;
         } else {
-            if ( ! empty($this->errors)) {
-                return false;
-            }
-
-            if (empty($this->user_image) || empty($this->tmpPath)) {
-                $this->errors[] = "The file was not available";
-                return false;
-            }
-
-            $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->user_image;
-
-            var_dump($targetPath);
-
-            if (file_exists($targetPath)) {
-                $this->errors[] = "The file {$this->user_image} already exists";
-                return false;
-            }
-
-            if (move_uploaded_file($this->tmpPath, $targetPath)) {
-                if ($this->create()) {
-                    unset($this->tmpPath);
-                    return true;
-                }
-            } else {
-                $this->errors[] = "The images folder has a problem with its permissions";
-                return false;
-            }
+            $this->errors[] = "The images folder has a problem with its permissions";
+            return false;
         }
     }
+
 
     //region Getters
 

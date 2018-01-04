@@ -19,12 +19,14 @@ if (isset($_POST['update'])) {
         $user->setLastName($_POST['last_name']);
         $user->setPassword($_POST['password']);
 
-        $user->setFile($_FILES['user_image']);
-
-        if ($user->saveImage()) {
-            $message = "User added successfully";
+        if (empty($_FILES['user_image'])) {
+            $user->save();
         } else {
-            $message = join("<br>", $user->errors);
+            $user->setFile($_FILES['user_image']);
+
+            $user->saveImage();
+            $user->save();
+            redirect("edit_user.php?id={$user->id}");
         }
     }
 }
@@ -87,6 +89,8 @@ if (isset($_POST['update'])) {
                         </div>
 
                         <div class="form-group">
+                            <a href="delete_user.php?id=<?= $user->getId(); ?>"
+                               class="btn btn-danger pull-right">Delete</a>
                             <input type="submit" name="update" class="btn btn-primary" value="Update"
                         </div>
 
