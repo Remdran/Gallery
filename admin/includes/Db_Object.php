@@ -68,7 +68,7 @@ class Db_Object
                 $this->errors[] = $this->uploadErrors[$file['error']];
                 return false;
             } else {
-                $this->user_image = basename($file['name']);
+                $this->filename = basename($file['name']);
                 $this->tmpPath = $file['tmp_name'];
                 $this->type = $file['type'];
                 $this->size = $file['size'];

@@ -37,6 +37,7 @@ $photos = Photo::findAll();
                                 <th>File Name</th>
                                 <th>Title</th>
                                 <th>Size</th>
+                                <th>Comments</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -44,16 +45,24 @@ $photos = Photo::findAll();
                                 <tr>
                                     <td>
                                         <img class="admin-photo-thumbnail" src="<?= $photo->photoPath(); ?>" alt="">
-                                        <div class="pictures_link">
+                                        <div class="action_links">
                                             <a href="delete_photo.php?id=<?= $photo->getId(); ?>">Delete</a>
                                             <a href="edit_photo.php?id=<?= $photo->getId(); ?>">Edit</a>
-                                            <a href="#">View</a>
+                                            <a href="../photo.php?id=<?= $photo->getId(); ?>">View</a>
                                         </div>
                                     </td>
                                     <td><?= $photo->getId(); ?></td>
                                     <td><?= $photo->getFilename(); ?></td>
                                     <td><?= $photo->getTitle(); ?></td>
                                     <td><?= $photo->getSize(); ?></td>
+                                    <td>
+                                        <a href="photo_comment.php?id=<?= $photo->getId(); ?>">
+                                            <?php
+                                            $comment = Comment::findComment($photo->getId());
+                                            echo count($comment);
+                                            ?>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

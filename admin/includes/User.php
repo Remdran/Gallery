@@ -8,7 +8,7 @@ class User extends Db_Object
     protected $password;
     protected $first_name;
     protected $last_name;
-    protected $user_image;
+    protected $filename;
     protected $uploadDir = "images";
     protected $imagePlaceholder = "http://placehold.it/400x400&text=image";
     protected static $dbTable = "users";
@@ -35,12 +35,12 @@ class User extends Db_Object
     {
         global $database;
 
-        $sql = "INSERT INTO " . static::$dbTable . " (username, password, first_name, last_name, user_image) VALUES ('";
+        $sql = "INSERT INTO " . static::$dbTable . " (username, password, first_name, last_name, filename) VALUES ('";
         $sql .= $database->escapeString($this->username) . "', '";
         $sql .= $database->escapeString($this->password) . "', '";
         $sql .= $database->escapeString($this->first_name) . "', '";
         $sql .= $database->escapeString($this->last_name) . "', '";
-        $sql .= $database->escapeString($this->user_image) . "')";
+        $sql .= $database->escapeString($this->filename) . "')";
 
         if ($database->query($sql)) {
             $this->id = $database->insertedId();
@@ -81,7 +81,7 @@ class User extends Db_Object
 
     public function imagePath()
     {
-        return empty($this->user_image) ? $this->imagePlaceholder : $this->uploadDir . DS . $this->user_image;
+        return empty($this->filename) ? $this->imagePlaceholder : $this->uploadDir . DS . $this->filename;
     }
 
     public function saveImage()
@@ -90,17 +90,17 @@ class User extends Db_Object
             return false;
         }
 
-        if (empty($this->user_image) || empty($this->tmpPath)) {
+        if (empty($this->filename) || empty($this->tmpPath)) {
             $this->errors[] = "The file was not available";
             return false;
         }
 
-        $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->user_image;
+        $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->filename;
 
         var_dump($targetPath);
 
         if (file_exists($targetPath)) {
-            $this->errors[] = "The file {$this->user_image} already exists";
+            $this->errors[] = "The file {$this->filename} already exists";
             return false;
         }
 
@@ -150,7 +150,7 @@ class User extends Db_Object
 
     public function getUserImage()
     {
-        return $this->user_image;
+        return $this->filename;
     }
 
     public function getPassword()
@@ -193,9 +193,9 @@ class User extends Db_Object
         $this->last_name = $last_name;
     }
 
-    public function setUserImage($user_image)
+    public function setUserImage($filename)
     {
-        $this->user_image = $user_image;
+        $this->filename = $filename;
     }
     //endregion
 }

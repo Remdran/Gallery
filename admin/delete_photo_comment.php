@@ -16,7 +16,8 @@ $comment = Comment::findById($_GET['id']);
 
 if ($comment) {
     $comment->delete();
-    redirect('comments.php');
+    $photo_id = $comment->getPhotoId();
+    redirect("photo_comment.php?id={$photo_id}");
 } else {
     redirect('comments.php');
 }
