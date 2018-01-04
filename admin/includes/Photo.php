@@ -3,7 +3,6 @@
 
 class Photo extends Db_Object
 {
-
     protected static $dbTable = "photos";
     protected $id;
     protected $title;
@@ -16,8 +15,6 @@ class Photo extends Db_Object
 
     public $tmpPath;
     public $uploadDir = 'images';
-
-
 
     public function photoPath()
     {
