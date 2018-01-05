@@ -1,23 +1,29 @@
 <?php include("includes/header.php"); ?>
 
+<?php
+
+$photos = Photo::findAll();
+
+?>
 
 <div class="row">
 
-    <!-- Blog Entries Column -->
-    <div class="col-md-8">
+    <div class="col-md-12">
 
-
-    </div>
-
-
-    <!-- Blog Sidebar Widgets Column -->
-    <div class="col-md-4">
-
-
-        <?php include("includes/sidebar.php"); ?>
-
+        <div class="thumbnails row">
+            <?php foreach ($photos as $photo) : ?>
+                <div class="col-xs-6 col-md-3">
+                    <a href="photo.php?id=<?= $photo->getId(); ?>" class="thumbnail">
+                        <img src="admin/<?= $photo->photoPath(); ?>" alt="" class="picture img-responsive">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
     </div>
-    <!-- /.row -->
+</div>     <!-- /.row -->
+
+
+
 
     <?php include("includes/footer.php"); ?>
