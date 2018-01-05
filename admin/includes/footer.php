@@ -18,16 +18,18 @@
     function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Work', 11],
-            ['Eat', 2],
-            ['Commute', 2],
-            ['Watch TV', 2],
-            ['Sleep', 7]
+            ['Data Set', 'Count'],
+            ['Views', <?= $session->getCount(); ?>],
+            ['Comments', <?= Comment::countAll(); ?>],
+            ['Users', <?= User::countAll(); ?>],
+            ['Photos', <?= Photo::countAll(); ?>]
         ]);
 
         var options = {
-            title: 'My Daily Activities'
+            legend: 'none',
+            pieSliceText: 'label',
+            backgroundColor: 'transparent',
+            title: 'Site Data'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
