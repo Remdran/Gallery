@@ -39,7 +39,7 @@
                                     <i class="fa fa-photo fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">7</div>
+                                    <div class="huge"><?= Photo::countAll(); ?></div>
                                     <div>Photos</div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     <i class="fa fa-user fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">7</div>
+                                    <div class="huge"><?= User::countAll(); ?></div>
                                     <div>Users</div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                     <i class="fa fa-certificate fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">8</div>
+                                    <div class="huge"><?= Comment::countAll(); ?></div>
                                     <div>Comments</div>
                                 </div>
                             </div>

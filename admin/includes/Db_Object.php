@@ -3,7 +3,6 @@
 
 class Db_Object
 {
-
     public $errors = [];
     public $uploadErrors = [   // Translating constant error codes to readable errors
         UPLOAD_ERR_OK         => 'There is no error',
@@ -74,6 +73,17 @@ class Db_Object
                 $this->size = $file['size'];
             }
         }
+    }
+
+    public static function countAll()
+    {
+        global $database;
+
+        $sql = "SELECT COUNT(*) FROM " . static::$dbTable;
+        $results = $database->query($sql);
+        $row = mysqli_fetch_array($results);
+
+        return array_shift($row);
     }
 
 }
