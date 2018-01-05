@@ -3,10 +3,10 @@
 
 class Session
 {
-
     protected $signedIn = false;
     protected $userId;
     protected $message;
+    protected $count;
 
     /**
      * Session constructor.
@@ -14,6 +14,7 @@ class Session
     public function __construct()
     {
         session_start();
+        $this->visitorCount();
         $this->checkLogin();
         $this->checkMessage();
     }
@@ -63,6 +64,15 @@ class Session
         }
     }
 
+    public function visitorCount()
+    {
+        if (isset($_SESSION['count'])) {
+            return $this->count = $_SESSION['count']++;
+        } else {
+            return $_SESSION['count'] = 1;
+        }
+    }
+
     //region Getters
 
     /**
@@ -84,6 +94,11 @@ class Session
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function getCount()
+    {
+        return $this->count;
     }
     //endregion
 }
