@@ -2,12 +2,19 @@
 
 <?php
 
-$photos = Photo::findAll();
+$page = ! empty($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$picsPerPage = 4;
+
+$totalCount = Photo::countAll();
+
+$paginate = new Paginate($page, $picsPerPage, $totalCount);
+$query = $paginate->dbQuery();
+$photos = Photo::doQuery($query);
 
 ?>
 
 <div class="row">
-
     <div class="col-md-12">
 
         <div class="thumbnails row">
