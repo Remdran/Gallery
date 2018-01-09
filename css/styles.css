@@ -2,3 +2,11 @@
     width: 250px;
     height: 150px !important;
 }
+
+.unactive {
+    margin: 5px;
+}
+
+.active {
+    margin: 5px;
+}

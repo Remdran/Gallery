@@ -27,6 +27,32 @@ $photos = Photo::doQuery($query);
             <?php endforeach; ?>
         </div>
 
+        <div class="row">
+            <ul class="pager">
+                <?php
+
+                if ($paginate->totalPages() > 1) {
+                    if ($paginate->allowNext()) {
+                        echo "<li class='next'><a href='index.php?page={$paginate->next()}'>Next</a></li>";
+                    }
+
+                    for ($i = 1; $i <= $paginate->totalPages(); $i++) {
+                        if ($i == $paginate->getPage()) {
+                            echo "<li class='active'>{$i}</li>";
+                        } else {
+                            echo "<li class='unactive'><a href='index.php?page={$i}'>{$i}</a></li>";
+                        }
+                    }
+
+                    if ($paginate->allowPrevious()) {
+                        echo "<li class='previous'><a href='index.php?page={$paginate->previous()}'>Previous</a></li>";
+                    }
+                }
+                ?>
+            </ul>
+        </div>
+
+
     </div>
 </div>     <!-- /.row -->
 

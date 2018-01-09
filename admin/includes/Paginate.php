@@ -8,11 +8,11 @@ class Paginate
     protected $picsPerPage;
     protected $totalCount;
 
-    public function __construct($page = 1, $picsPerPage = 4, $totalCount)
+    public function __construct($page = 1, $picsPerPage = 4, $count)
     {
         $this->currentPage = $page;
         $this->picsPerPage = $picsPerPage;
-        $this->totalCount = $totalCount;
+        $this->totalCount = $count;
     }
 
     public function allowPrevious()
@@ -22,7 +22,7 @@ class Paginate
 
     public function previous()
     {
-        return $this->currentPage--;
+        return $this->currentPage - 1;
     }
 
     public function allowNext()
@@ -32,7 +32,7 @@ class Paginate
 
     public function next()
     {
-        return $this->currentPage++;
+        return $this->currentPage + 1;
     }
 
     public function totalPages()
@@ -61,7 +61,7 @@ class Paginate
      */
     public function getPage()
     {
-        return $this->page;
+        return $this->currentPage;
     }
 
     /**
@@ -103,5 +103,7 @@ class Paginate
     {
         $this->totalCount = $totalCount;
     }
+
+
     //endregion
 }
