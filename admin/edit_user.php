@@ -33,6 +33,7 @@ if (isset($_POST['update'])) {
 
 ?>
 
+
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
@@ -41,6 +42,8 @@ if (isset($_POST['update'])) {
     <?php include("includes/side_nav.php"); ?>
 
 </nav>
+
+<?php include("modal.php"); ?>
 
 <div id="page-wrapper">
     <div class="container-fluid">
@@ -54,7 +57,9 @@ if (isset($_POST['update'])) {
                 </h1>
 
                 <div class="col-md-6">
-                    <img class="img-responsive" src="<?= $user->imagePath() ?>" alt="">
+                    <a href="#" data-toggle="modal" data-target="#photo-lib"><img class="img-responsive"
+                                                                                  src="<?= $user->imagePath() ?>"
+                                                                                  alt=""></a>
                 </div>
 
                 <form action="" method="POST" enctype="multipart/form-data">
@@ -90,7 +95,7 @@ if (isset($_POST['update'])) {
 
                         <div class="form-group">
                             <a href="delete_user.php?id=<?= $user->getId(); ?>"
-                               class="btn btn-danger pull-right">Delete</a>
+                               class="btn btn-danger pull-right" id="user_id">Delete</a>
                             <input type="submit" name="update" class="btn btn-primary" value="Update"
                         </div>
 
