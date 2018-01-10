@@ -58,7 +58,8 @@ class User extends Db_Object
         $sql .= "username= '" . $database->escapeString($this->username) . "', ";
         $sql .= "password= '" . $database->escapeString($this->password) . "', ";
         $sql .= "first_name= '" . $database->escapeString($this->first_name) . "', ";
-        $sql .= "last_name= '" . $database->escapeString($this->last_name) . "' ";
+        $sql .= "last_name= '" . $database->escapeString($this->last_name) . "', ";
+        $sql .= "filename= '" . $database->escapeString($this->filename) . "' ";
         $sql .= " WHERE id= " . $database->escapeString($this->id);
 
         $database->query($sql);
@@ -111,6 +112,13 @@ class User extends Db_Object
             $this->errors[] = "The images folder has a problem with its permissions";
             return false;
         }
+    }
+
+    public function ajaxSaveUserImg($imgName, $userId)
+    {
+        $this->filename = $imgName;
+        $this->id = $userId;
+        $this->save();
     }
 
 

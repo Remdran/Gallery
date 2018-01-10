@@ -26,7 +26,7 @@ if (isset($_POST['update'])) {
 
             $user->saveImage();
             $user->save();
-            redirect("edit_user.php?id={$user->id}");
+            redirect("edit_user.php?id={$user->getId()}");
         }
     }
 }
