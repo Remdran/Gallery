@@ -116,9 +116,16 @@ class User extends Db_Object
 
     public function ajaxSaveUserImg($imgName, $userId)
     {
-        $this->filename = $imgName;
-        $this->id = $userId;
-        $this->save();
+        global $database;
+
+        $this->filename = $database->escapeString($imgName);
+        $this->id = $database->escapeString($userId);
+
+        $sql = "UPDATE " . self::$dbTable . " SET filename = '{$this->filename}' ";
+        $sql .= " WHERE id = {$this->id}";
+        $database->query($sql);
+
+        echo $this->imagePath();
     }
 
 

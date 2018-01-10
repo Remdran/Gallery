@@ -56,7 +56,7 @@ if (isset($_POST['update'])) {
                     <small>Subheading</small>
                 </h1>
 
-                <div class="col-md-6">
+                <div class="col-md-6 user_img_div">
                     <a href="#" data-toggle="modal" data-target="#photo-lib"><img class="img-responsive"
                                                                                   src="<?= $user->imagePath() ?>"
                                                                                   alt=""></a>

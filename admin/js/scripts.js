@@ -28,7 +28,9 @@ $(document).ready(function () {
             type: "POST",
             success: function (data) {
                 if (!data.error) {
-                    location.reload(true);
+                    var fixed = data.split(";");
+                    var fixednew = fixed[fixed.length - 1]; // FIND THE ";" ERROR AND CHANGE FIXEDNEW TO DATA ON THE LINE BELOW
+                    $(".user_img_div a img").prop("src", fixednew);
                 }
             }
         })
