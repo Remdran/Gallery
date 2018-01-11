@@ -17,12 +17,11 @@ if (isset($_POST['submit'])) {
 
         $user->setFile($_FILES['user_image']);
 
-        if ($user->saveImage()) {
-            $user->save();
-            $message = "User added successfully";
-        } else {
-            $message = join("<br>", $user->errors);
-        }
+//        $user->saveImage();
+        $user->uploadPhoto();
+        $session->message("The user: {$user->getUsername()} has been added");
+        $user->save();
+        redirect("users.php");
     }
 }
 ?>

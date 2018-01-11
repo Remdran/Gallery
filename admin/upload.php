@@ -7,10 +7,10 @@
 
 <?php
 $message = "";
-if (isset($_POST['submit'])) {
+if (isset($_FILES['file'])) {
     $photo = new Photo();
     $photo->setTitle($_POST['title']);
-    $photo->setFile($_FILES['file_upload']);
+    $photo->setFile($_FILES['file']);
 
     if ($photo->save()) {
         $message = "Photo uploaded successfully";
@@ -39,18 +39,29 @@ if (isset($_POST['submit'])) {
                         Upload
                     </h1>
 
-                    <div class="col-md-6">
-                        <?= $message; ?>
-                        <form action="upload.php" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <input type="text" name="title" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <input type="file" name="file_upload">
-                            </div>
-                            <input type="submit" name="submit">
-                        </form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $message; ?>
+                            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="text" name="title" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" name="file">
+                                </div>
+                                <input type="submit" name="submit">
+                            </form>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="upload.php" class="dropzone">
+
+                            </form>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>

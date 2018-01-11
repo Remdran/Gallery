@@ -33,6 +33,8 @@ $comments = Comment::findComment($_GET['id']);
                         Comments
                     </h1>
 
+                    <p class="bg-success"><?= $session->getMessage(); ?></p>
+
                     <div class="col-md-12">
                         <table class="table table-hover">
                             <thead>

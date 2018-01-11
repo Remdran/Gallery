@@ -23,10 +23,11 @@ $users = User::findAll();
             <!-- Page Heading -->
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="bg-success"><?= $session->getMessage(); ?></p>
                     <h1 class="page-header">
                         Users
                     </h1>
+
+                    <p class="bg-success"><?= $session->getMessage(); ?></p>
 
                     <a href="add_user.php" class="btn btn-primary">Add User</a>
 

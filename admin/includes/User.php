@@ -98,8 +98,6 @@ class User extends Db_Object
 
         $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->filename;
 
-        var_dump($targetPath);
-
         if (file_exists($targetPath)) {
             $this->errors[] = "The file {$this->filename} already exists";
             return false;
@@ -126,6 +124,18 @@ class User extends Db_Object
         $database->query($sql);
 
         echo $this->imagePath();
+    }
+
+    public function deletePhoto()
+    {
+        if ($this->delete()) {
+            $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->filename;
+//            $targetPath = SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->filename;
+
+            return unlink($targetPath) ? true : false;
+        } else {
+            return false;
+        }
     }
 
 

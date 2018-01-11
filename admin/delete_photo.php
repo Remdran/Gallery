@@ -16,6 +16,8 @@ $photo = Photo::findById($_GET['id']);
 
 if ($photo) {
     $photo->deletePhoto();
+    $session->message("The {$photo->getFilename()} has been deleted");
+
     redirect('photos.php');
 } else {
     redirect('photos.php');
