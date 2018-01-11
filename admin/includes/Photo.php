@@ -119,6 +119,18 @@ class Photo extends Db_Object
         }
     }
 
+    public static function displayData($photoId)
+    {
+        $photo = Photo::findById($photoId);
+
+        $output = "<a class='thumbnail' href='#'><img src='{$photo->photoPath()}' width='100' alt=''></a>";
+        $output .= "<p><strong>Filename:</strong> " . $photo->filename . "</p>";
+        $output .= "<p><strong>Type:</strong> " . $photo->type . "</p>";
+        $output .= "<p><strong>Size:</strong> " . $photo->size . "</p>";
+
+        echo $output;
+    }
+
     //region Getters and Setters
 
     /**

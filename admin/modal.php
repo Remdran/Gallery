@@ -21,7 +21,7 @@ $photos = Photo::findAll();
                             <div class="col-xs-2">
                                 <a role="checkbox" aria-checked="false" tabindex="0" href="#" class="thumbnail">
                                     <img src="<?= $photo->photoPath(); ?>" alt=""
-                                         class="modal-thumbnails img-responsive">
+                                         class="modal-thumbnails img-responsive" data="<?= $photo->getId(); ?>">
                                 </a>
                                 <div class="photo-id hidden"></div>
                             </div>

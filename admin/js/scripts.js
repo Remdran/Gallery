@@ -7,6 +7,8 @@ $(document).ready(function () {
     var imgSrcSplit;
     var imgName;
 
+    var photoId;
+
     // When a thumbnail is clicked, active the Apply Selection button, get the users id and the images filename
     $(".modal-thumbnails").click(function () {
         $("#set_user_image").prop('disabled', false);
@@ -18,6 +20,19 @@ $(document).ready(function () {
         imgSrc = $(this).prop("src");
         imgSrcSplit = imgSrc.split("/");
         imgName = imgSrcSplit[imgSrcSplit.length - 1];
+
+        photoId = $(this).attr("data");
+
+        $.ajax({
+            url: "includes/ajax_code.php",
+            data: {photoId: photoId},
+            type: "POST",
+            success: function (data) {
+                if (!data.error) {
+                    $('#modal-sidebar').html(data);
+                }
+            }
+        })
     });
 
     // When the Apply Selection button is pressed send the imgName and userId via Ajax

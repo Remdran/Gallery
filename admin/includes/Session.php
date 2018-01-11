@@ -54,7 +54,7 @@ class Session
         }
     }
 
-    public function checkMessage()
+    private function checkMessage()
     {
         if (isset($_SESSION['message'])) {
             $this->message = $_SESSION['message'];
