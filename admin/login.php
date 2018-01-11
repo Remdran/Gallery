@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 
 <div class="col-md-4 col-md-offset-3">
     <h4 class="bg-danger"><?= $message; ?></h4>
-    <form action="" method="POST">
+    <form id="login-form" action="" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" value="<?= htmlentities($username) ?>">

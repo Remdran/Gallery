@@ -47,7 +47,7 @@ $photos = Photo::findAll();
                                     <td>
                                         <img class="admin-photo-thumbnail" src="<?= $photo->photoPath(); ?>" alt="">
                                         <div class="action_links">
-                                            <a href="delete_photo.php?id=<?= $photo->getId(); ?>">Delete</a>
+                                            <a class="deleteLink" href="delete_photo.php?id=<?= $photo->getId(); ?>">Delete</a>
                                             <a href="edit_photo.php?id=<?= $photo->getId(); ?>">Edit</a>
                                             <a href="../photo.php?id=<?= $photo->getId(); ?>">View</a>
                                         </div>

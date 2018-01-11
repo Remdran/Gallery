@@ -51,7 +51,18 @@ $(document).ready(function () {
         })
     });
 
+    // Slide the side info panel in edit photos and change the direction of the carat
+    $(".info-box-header").click(function () {
+        $(".inside").slideToggle("fast");
+        $("#toggle").toggleClass("glyphicon glyphicon-menu-down glyphicon glyphicon-menu-up");
+    });
 
+    // Confirmation for deleting a photo
+    $(".deleteLink").click(function () {
+        return confirm("Are you sure you want to delete this item?");
+    });
+
+    // WYSIWYG editor
     tinymce.init({selector: 'textarea'});
 });
 

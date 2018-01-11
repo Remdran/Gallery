@@ -17,8 +17,7 @@ if (isset($_POST['submit'])) {
 
         $user->setFile($_FILES['user_image']);
 
-//        $user->saveImage();
-        $user->uploadPhoto();
+        $user->saveImage();
         $session->message("The user: {$user->getUsername()} has been added");
         $user->save();
         redirect("users.php");
