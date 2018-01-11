@@ -5,7 +5,7 @@ if ( ! $session->isSignedIn()) {
 }
 ?>
 <?php
-$photos = Photo::findAll();
+$photos = User::findById($_SESSION['userId'])->photos();
 ?>
 
     <!-- Navigation -->

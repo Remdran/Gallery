@@ -138,6 +138,10 @@ class User extends Db_Object
         }
     }
 
+    public function photos()
+    {
+        return Photo::doQuery("SELECT * FROM photos WHERE userid = " . $this->id);
+    }
 
     //region Getters
 

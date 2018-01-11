@@ -65,7 +65,8 @@ class Photo extends Db_Object
         $sql .= "filename= '" . $database->escapeString($this->filename) . "', ";
         $sql .= "alternate_text= '" . $database->escapeString($this->alternate_text) . "', ";
         $sql .= "type= '" . $database->escapeString($this->type) . "', ";
-        $sql .= "size= '" . $database->escapeString($this->size) . "' ";
+        $sql .= "size= '" . $database->escapeString($this->size) . "', ";
+        $sql .= "userid= '" . $database->escapeString($_SESSION['userId']) . "' ";
         $sql .= " WHERE id= " . $database->escapeString($this->id);
 
         $database->query($sql);
@@ -77,14 +78,15 @@ class Photo extends Db_Object
     {
         global $database;
 
-        $sql = "INSERT INTO " . static::$dbTable . " (title, caption, description, filename, alternate_text, type, size) VALUES ('";
+        $sql = "INSERT INTO " . static::$dbTable . " (title, caption, description, filename, alternate_text, type, size, userid) VALUES ('";
         $sql .= $database->escapeString($this->title) . "', '";
         $sql .= $database->escapeString($this->caption) . "', '";
         $sql .= $database->escapeString($this->description) . "', '";
         $sql .= $database->escapeString($this->filename) . "', '";
         $sql .= $database->escapeString($this->alternate_text) . "', '";
         $sql .= $database->escapeString($this->type) . "', '";
-        $sql .= $database->escapeString($this->size) . "')";
+        $sql .= $database->escapeString($this->size) . "', '";
+        $sql .= $database->escapeString($_SESSION['userId']) . "')";
 
         if ($database->query($sql)) {
             $this->id = $database->insertedId();

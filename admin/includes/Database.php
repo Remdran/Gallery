@@ -5,15 +5,15 @@ class Database
 {
 
     public $connection;
+    public $db;
 
     /**
      * Database constructor.
      */
     public function __construct()
     {
-        $this->openDBConn();
+        $this->db = $this->openDBConn();
     }
-
 
     public function openDBConn()
     {
@@ -22,11 +22,13 @@ class Database
         if ($this->connection->connect_errno) {
             die("Database connection failed");
         }
+
+        return $this->connection;
     }
 
     public function query($sql)
     {
-        $result = $this->connection->query($sql);
+        $result = $this->db->query($sql);
 
         $this->confirm_query($result);
 
@@ -42,12 +44,12 @@ class Database
 
     public function escapeString($string)
     {
-        return $this->connection->real_escape_string($string);
+        return $this->db->real_escape_string($string);
     }
 
     public function insertedId()
     {
-        return $this->connection->insert_id;
+        return $this->db->insert_id;
     }
 }
 
