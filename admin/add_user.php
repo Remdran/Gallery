@@ -13,13 +13,13 @@ if (isset($_POST['submit'])) {
         $user->setUsername($_POST['username']);
         $user->setFirstName($_POST['first_name']);
         $user->setLastName($_POST['last_name']);
-        $user->setPassword($_POST['password']);
+        $user->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT));
 
         $user->setFile($_FILES['user_image']);
 
         $user->saveImage();
-        $session->message("The user: {$user->getUsername()} has been added");
         $user->save();
+        $session->message("The user: {$user->getUsername()} has been added");
         redirect("users.php");
     }
 }

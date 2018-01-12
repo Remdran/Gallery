@@ -20,10 +20,15 @@ class User extends Db_Object
         $username = $database->escapeString($username);
         $password = $database->escapeString($password);
 
-        $sql = "SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}' LIMIT 1";
+        $sql = "SELECT * FROM users WHERE username = '{$username}' LIMIT 1";
 
         $result = self::doQuery($sql);
-        return ! empty($result) ? array_shift($result) : false;
+
+        if (password_verify($password, $result[0]->getPassword())) {
+            return array_shift($result);
+        } else {
+            return false;
+        }
     }
 
     public function save()
@@ -130,7 +135,6 @@ class User extends Db_Object
     {
         if ($this->delete()) {
             $targetPath = DS . 'home' . DS . 'kel' . DS . SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->filename;
-//            $targetPath = SITE_ROOT . DS . 'admin' . DS . $this->uploadDir . DS . $this->filename;
 
             return unlink($targetPath) ? true : false;
         } else {
